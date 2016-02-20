@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql">
+
+  <!-- Table Insert -->
+  <insert id="T10_RELATIONSHIP_INSERT" parameterType="com.maxiaohua.genealogy.main.db.tbl.T10RelationshipDTO">
+    INSERT INTO T10_RELATIONSHIP (
+      PER_NO ,
+      FATHER_NO ,
+      MOTHER_NO ,
+      CREATE_USER ,
+      CREATE_DATE ,
+      CREATE_TIME ,
+      LAST_USER ,
+      LAST_DATE ,
+      LAST_TIME 
+    ) VALUES (
+      #{PerNo} ,
+      #{FatherNo} ,
+      #{MotherNo} ,
+      #{CreateUser} ,
+      #{CreateDate} ,
+      #{CreateTime} ,
+      #{LastUser} ,
+      curdate() ,
+      curtime() 
+    )
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty = "Id">
+    SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+  </insert>
+
+  <!-- Table Update -->
+  <update id="T10_RELATIONSHIP_FULL_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T10RelationshipDTO">
+    UPDATE T10_RELATIONSHIP SET
+      PER_NO = #{PerNo} ,
+      FATHER_NO = #{FatherNo} ,
+      MOTHER_NO = #{MotherNo} ,
+      CREATE_USER = #{CreateUser} ,
+      CREATE_DATE = #{CreateDate} ,
+      CREATE_TIME = #{CreateTime} ,
+      LAST_USER = #{LastUser} ,
+      LAST_DATE = curdate() ,
+      LAST_TIME = curtime() 
+    WHERE
+      ID = #{Id} 
+  </update>
+
+  <update id="T10_RELATIONSHIP_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T10RelationshipDTO">
+    UPDATE T10_RELATIONSHIP
+    <set>
+      <if test="PerNo!=null">PER_NO = #{PerNo},</if>
+      <if test="FatherNo!=null">FATHER_NO = #{FatherNo},</if>
+      <if test="MotherNo!=null">MOTHER_NO = #{MotherNo},</if>
+      <if test="CreateUser!=null">CREATE_USER = #{CreateUser},</if>
+      <if test="CreateDate!=null">CREATE_DATE = #{CreateDate},</if>
+      <if test="CreateTime!=null">CREATE_TIME = #{CreateTime},</if>
+      <if test="LastUser!=null">LAST_USER = #{LastUser},</if>
+      <if test="LastDate!=null">LAST_DATE = curdate(),</if>
+      <if test="LastTime!=null">LAST_TIME = curtime(),</if>
+    </set>
+    WHERE
+      ID = #{Id} 
+  </update>
+
+  <!-- Key Delete -->
+  <delete id="T10_RELATIONSHIP_DELETE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T10RelationshipDTO">
+    DELETE FROM T10_RELATIONSHIP
+    WHERE
+      ID = #{Id} 
+  </delete>
+
+  <!-- Key Search -->
+  <select id="T10_RELATIONSHIP_FIND" resultType="com.maxiaohua.genealogy.main.db.tbl.T10RelationshipDTO">
+    SELECT
+      ID AS "Id" ,
+      PER_NO AS "PerNo" ,
+      FATHER_NO AS "FatherNo" ,
+      MOTHER_NO AS "MotherNo" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T10_RELATIONSHIP
+    WHERE
+      ID = #{Id} 
+  </select>
+
+  <!-- Key Search（For Update） -->
+  <select id="T10_RELATIONSHIP_FIND_FOR_UPDATE" resultType="com.maxiaohua.genealogy.main.db.tbl.T10RelationshipDTO">
+    SELECT
+      ID AS "Id" ,
+      PER_NO AS "PerNo" ,
+      FATHER_NO AS "FatherNo" ,
+      MOTHER_NO AS "MotherNo" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T10_RELATIONSHIP
+    WHERE
+      ID = #{Id} 
+    FOR UPDATE
+  </select>
+
+  <!-- AND Search -->
+  <select id="T10_RELATIONSHIP_EQUAL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T10RelationshipDTO">
+    SELECT
+      ID AS "Id" ,
+      PER_NO AS "PerNo" ,
+      FATHER_NO AS "FatherNo" ,
+      MOTHER_NO AS "MotherNo" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T10_RELATIONSHIP
+    <where>
+      <if test="Id != null">AND ID = #{Id}</if>
+      <if test="PerNo != null">AND PER_NO = #{PerNo}</if>
+      <if test="FatherNo != null">AND FATHER_NO = #{FatherNo}</if>
+      <if test="MotherNo != null">AND MOTHER_NO = #{MotherNo}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">AND LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search(OR) -->
+  <select id="T10_RELATIONSHIP_EQUAL_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T10RelationshipDTO">
+    SELECT
+      ID AS "Id" ,
+      PER_NO AS "PerNo" ,
+      FATHER_NO AS "FatherNo" ,
+      MOTHER_NO AS "MotherNo" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T10_RELATIONSHIP
+    <where>
+      <if test="Id != null">OR ID = #{Id}</if>
+      <if test="PerNo != null">OR PER_NO = #{PerNo}</if>
+      <if test="FatherNo != null">OR FATHER_NO = #{FatherNo}</if>
+      <if test="MotherNo != null">OR MOTHER_NO = #{MotherNo}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">OR LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE -->
+  <select id="T10_RELATIONSHIP_LIKE_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T10RelationshipDTO">
+    SELECT
+      ID AS "Id" ,
+      PER_NO AS "PerNo" ,
+      FATHER_NO AS "FatherNo" ,
+      MOTHER_NO AS "MotherNo" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T10_RELATIONSHIP
+    <where>
+      <if test="Id != null">AND ID LIKE '%'|| #{Id} ||'%'</if>
+      <if test="PerNo != null">AND PER_NO LIKE '%'|| #{PerNo} ||'%'</if>
+      <if test="FatherNo != null">AND FATHER_NO LIKE '%'|| #{FatherNo} ||'%'</if>
+      <if test="MotherNo != null">AND MOTHER_NO LIKE '%'|| #{MotherNo} ||'%'</if>
+      <if test="CreateUser != null">AND CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">AND CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">AND CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+      <if test="LastUser != null">AND LAST_USER LIKE '%'|| #{LastUser} ||'%'</if>
+      <if test="LastDate != null">AND LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">AND LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE(OR) -->
+  <select id="T10_RELATIONSHIP_LIKE_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T10RelationshipDTO">
+    SELECT
+      ID AS "Id" ,
+      PER_NO AS "PerNo" ,
+      FATHER_NO AS "FatherNo" ,
+      MOTHER_NO AS "MotherNo" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T10_RELATIONSHIP
+    <where>
+      <if test="Id != null">OR ID LIKE '%'|| #{Id} ||'%'</if>
+      <if test="PerNo != null">OR PER_NO LIKE '%'|| #{PerNo} ||'%'</if>
+      <if test="FatherNo != null">OR FATHER_NO LIKE '%'|| #{FatherNo} ||'%'</if>
+      <if test="MotherNo != null">OR MOTHER_NO LIKE '%'|| #{MotherNo} ||'%'</if>
+      <if test="CreateUser != null">OR CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">OR CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">OR CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+      <if test="LastUser != null">OR LAST_USER LIKE '%'|| #{LastUser} ||'%'</if>
+      <if test="LastDate != null">OR LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">OR LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Customize Search -->
+  <select id="T10_RELATIONSHIP_SQL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T10RelationshipDTO" parameterType="java.util.Map">
+    SELECT
+      ID AS "Id" ,
+      PER_NO AS "PerNo" ,
+      FATHER_NO AS "FatherNo" ,
+      MOTHER_NO AS "MotherNo" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T10_RELATIONSHIP
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Count -->
+  <select id="T10_RELATIONSHIP_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T10_RELATIONSHIP
+    <where>
+      <if test="Id != null">AND ID = #{Id}</if>
+      <if test="PerNo != null">AND PER_NO = #{PerNo}</if>
+      <if test="FatherNo != null">AND FATHER_NO = #{FatherNo}</if>
+      <if test="MotherNo != null">AND MOTHER_NO = #{MotherNo}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">AND LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count OR -->
+  <select id="T10_RELATIONSHIP_COUNT_OR" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T10_RELATIONSHIP
+    <where>
+      <if test="Id != null">OR ID = #{Id}</if>
+      <if test="PerNo != null">OR PER_NO = #{PerNo}</if>
+      <if test="FatherNo != null">OR FATHER_NO = #{FatherNo}</if>
+      <if test="MotherNo != null">OR MOTHER_NO = #{MotherNo}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">OR LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count Customize -->
+  <select id="T10_RELATIONSHIP_COUNT_SEARCH" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    FROM T10_RELATIONSHIP
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+  </select>
+</mapper>

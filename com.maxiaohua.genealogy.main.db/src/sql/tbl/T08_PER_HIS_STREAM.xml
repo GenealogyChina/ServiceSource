@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql">
+
+  <!-- Table Insert -->
+  <insert id="T08_PER_HIS_STREAM_INSERT" parameterType="com.maxiaohua.genealogy.main.db.tbl.T08PerHisStreamDTO">
+    INSERT INTO T08_PER_HIS_STREAM (
+      PER_HIS_NO ,
+      TYPE ,
+      PATH ,
+      REMARKS ,
+      DEL_FLG ,
+      CREATE_USER ,
+      CREATE_DATE ,
+      CREATE_TIME ,
+      LAST_USER ,
+      LAST_DATE ,
+      LAST_TIME 
+    ) VALUES (
+      #{PerHisNo} ,
+      #{Type} ,
+      #{Path} ,
+      #{Remarks} ,
+      #{DelFlg} ,
+      #{CreateUser} ,
+      #{CreateDate} ,
+      #{CreateTime} ,
+      #{LastUser} ,
+      curdate() ,
+      curtime() 
+    )
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty = "ID">
+    SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+  </insert>
+
+  <!-- Table Update -->
+  <update id="T08_PER_HIS_STREAM_FULL_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T08PerHisStreamDTO">
+    UPDATE T08_PER_HIS_STREAM SET
+      PER_HIS_NO = #{PerHisNo} ,
+      TYPE = #{Type} ,
+      PATH = #{Path} ,
+      REMARKS = #{Remarks} ,
+      DEL_FLG = #{DelFlg} ,
+      CREATE_USER = #{CreateUser} ,
+      CREATE_DATE = #{CreateDate} ,
+      CREATE_TIME = #{CreateTime} ,
+      LAST_USER = #{LastUser} ,
+      LAST_DATE = curdate() ,
+      LAST_TIME = curtime() 
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <update id="T08_PER_HIS_STREAM_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T08PerHisStreamDTO">
+    UPDATE T08_PER_HIS_STREAM
+    <set>
+      <if test="PerHisNo!=null">PER_HIS_NO = #{PerHisNo},</if>
+      <if test="Type!=null">TYPE = #{Type},</if>
+      <if test="Path!=null">PATH = #{Path},</if>
+      <if test="Remarks!=null">REMARKS = #{Remarks},</if>
+      <if test="DelFlg!=null">DEL_FLG = #{DelFlg},</if>
+      <if test="CreateUser!=null">CREATE_USER = #{CreateUser},</if>
+      <if test="CreateDate!=null">CREATE_DATE = #{CreateDate},</if>
+      <if test="CreateTime!=null">CREATE_TIME = #{CreateTime},</if>
+      <if test="LastUser!=null">LAST_USER = #{LastUser},</if>
+      <if test="LastDate!=null">LAST_DATE = curdate(),</if>
+      <if test="LastTime!=null">LAST_TIME = curtime(),</if>
+    </set>
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <!-- Key Delete -->
+  <delete id="T08_PER_HIS_STREAM_DELETE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T08PerHisStreamDTO">
+    DELETE FROM T08_PER_HIS_STREAM
+    WHERE
+      ID = #{ID} 
+  </delete>
+
+  <!-- Key Search -->
+  <select id="T08_PER_HIS_STREAM_FIND" resultType="com.maxiaohua.genealogy.main.db.tbl.T08PerHisStreamDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      TYPE AS "Type" ,
+      PATH AS "Path" ,
+      REMARKS AS "Remarks" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T08_PER_HIS_STREAM
+    WHERE
+      ID = #{ID} 
+  </select>
+
+  <!-- Key Search（For Update） -->
+  <select id="T08_PER_HIS_STREAM_FIND_FOR_UPDATE" resultType="com.maxiaohua.genealogy.main.db.tbl.T08PerHisStreamDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      TYPE AS "Type" ,
+      PATH AS "Path" ,
+      REMARKS AS "Remarks" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T08_PER_HIS_STREAM
+    WHERE
+      ID = #{ID} 
+    FOR UPDATE
+  </select>
+
+  <!-- AND Search -->
+  <select id="T08_PER_HIS_STREAM_EQUAL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T08PerHisStreamDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      TYPE AS "Type" ,
+      PATH AS "Path" ,
+      REMARKS AS "Remarks" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T08_PER_HIS_STREAM
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="PerHisNo != null">AND PER_HIS_NO = #{PerHisNo}</if>
+      <if test="Type != null">AND TYPE = #{Type}</if>
+      <if test="Path != null">AND PATH = #{Path}</if>
+      <if test="Remarks != null">AND REMARKS = #{Remarks}</if>
+      <if test="DelFlg != null">AND DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">AND LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search(OR) -->
+  <select id="T08_PER_HIS_STREAM_EQUAL_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T08PerHisStreamDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      TYPE AS "Type" ,
+      PATH AS "Path" ,
+      REMARKS AS "Remarks" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T08_PER_HIS_STREAM
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="PerHisNo != null">OR PER_HIS_NO = #{PerHisNo}</if>
+      <if test="Type != null">OR TYPE = #{Type}</if>
+      <if test="Path != null">OR PATH = #{Path}</if>
+      <if test="Remarks != null">OR REMARKS = #{Remarks}</if>
+      <if test="DelFlg != null">OR DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">OR LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE -->
+  <select id="T08_PER_HIS_STREAM_LIKE_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T08PerHisStreamDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      TYPE AS "Type" ,
+      PATH AS "Path" ,
+      REMARKS AS "Remarks" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T08_PER_HIS_STREAM
+    <where>
+      <if test="ID != null">AND ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="PerHisNo != null">AND PER_HIS_NO LIKE '%'|| #{PerHisNo} ||'%'</if>
+      <if test="Type != null">AND TYPE LIKE '%'|| #{Type} ||'%'</if>
+      <if test="Path != null">AND PATH LIKE '%'|| #{Path} ||'%'</if>
+      <if test="Remarks != null">AND REMARKS LIKE '%'|| #{Remarks} ||'%'</if>
+      <if test="DelFlg != null">AND DEL_FLG LIKE '%'|| #{DelFlg} ||'%'</if>
+      <if test="CreateUser != null">AND CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">AND CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">AND CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+      <if test="LastUser != null">AND LAST_USER LIKE '%'|| #{LastUser} ||'%'</if>
+      <if test="LastDate != null">AND LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">AND LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE(OR) -->
+  <select id="T08_PER_HIS_STREAM_LIKE_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T08PerHisStreamDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      TYPE AS "Type" ,
+      PATH AS "Path" ,
+      REMARKS AS "Remarks" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T08_PER_HIS_STREAM
+    <where>
+      <if test="ID != null">OR ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="PerHisNo != null">OR PER_HIS_NO LIKE '%'|| #{PerHisNo} ||'%'</if>
+      <if test="Type != null">OR TYPE LIKE '%'|| #{Type} ||'%'</if>
+      <if test="Path != null">OR PATH LIKE '%'|| #{Path} ||'%'</if>
+      <if test="Remarks != null">OR REMARKS LIKE '%'|| #{Remarks} ||'%'</if>
+      <if test="DelFlg != null">OR DEL_FLG LIKE '%'|| #{DelFlg} ||'%'</if>
+      <if test="CreateUser != null">OR CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">OR CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">OR CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+      <if test="LastUser != null">OR LAST_USER LIKE '%'|| #{LastUser} ||'%'</if>
+      <if test="LastDate != null">OR LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">OR LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Customize Search -->
+  <select id="T08_PER_HIS_STREAM_SQL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T08PerHisStreamDTO" parameterType="java.util.Map">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      TYPE AS "Type" ,
+      PATH AS "Path" ,
+      REMARKS AS "Remarks" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T08_PER_HIS_STREAM
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Count -->
+  <select id="T08_PER_HIS_STREAM_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T08_PER_HIS_STREAM
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="PerHisNo != null">AND PER_HIS_NO = #{PerHisNo}</if>
+      <if test="Type != null">AND TYPE = #{Type}</if>
+      <if test="Path != null">AND PATH = #{Path}</if>
+      <if test="Remarks != null">AND REMARKS = #{Remarks}</if>
+      <if test="DelFlg != null">AND DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">AND LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count OR -->
+  <select id="T08_PER_HIS_STREAM_COUNT_OR" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T08_PER_HIS_STREAM
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="PerHisNo != null">OR PER_HIS_NO = #{PerHisNo}</if>
+      <if test="Type != null">OR TYPE = #{Type}</if>
+      <if test="Path != null">OR PATH = #{Path}</if>
+      <if test="Remarks != null">OR REMARKS = #{Remarks}</if>
+      <if test="DelFlg != null">OR DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">OR LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count Customize -->
+  <select id="T08_PER_HIS_STREAM_COUNT_SEARCH" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    FROM T08_PER_HIS_STREAM
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+  </select>
+</mapper>

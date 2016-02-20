@@ -1,0 +1,2 @@
+eclipse.preferences.version=1
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<watchExpressions>\n<expression enabled\="true" text\="timestamp.substring(4,6)"/>\n<expression enabled\="true" text\="beanName"/>\n<expression enabled\="true" text\="messageFile"/>\n<expression enabled\="true" text\="myFmt.format(serviceStartTime)"/>\n<expression enabled\="true" text\="timestamp.substring(0,12)"/>\n</watchExpressions>\n

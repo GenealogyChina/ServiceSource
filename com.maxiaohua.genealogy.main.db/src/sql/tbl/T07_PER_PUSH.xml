@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql">
+
+  <!-- Table Insert -->
+  <insert id="T07_PER_PUSH_INSERT" parameterType="com.maxiaohua.genealogy.main.db.tbl.T07PerPushDTO">
+    INSERT INTO T07_PER_PUSH (
+      PER_NO ,
+      REGISITRATIONID ,
+      IMSI ,
+      LAST_DATE ,
+      LAST_TIME 
+    ) VALUES (
+      #{PerNo} ,
+      #{RegisitrationID} ,
+      #{IMSI} ,
+      curdate() ,
+      curtime() 
+    )
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty = "ID">
+    SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+  </insert>
+
+  <!-- Table Update -->
+  <update id="T07_PER_PUSH_FULL_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T07PerPushDTO">
+    UPDATE T07_PER_PUSH SET
+      PER_NO = #{PerNo} ,
+      REGISITRATIONID = #{RegisitrationID} ,
+      IMSI = #{IMSI} ,
+      LAST_DATE = curdate() ,
+      LAST_TIME = curtime() 
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <update id="T07_PER_PUSH_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T07PerPushDTO">
+    UPDATE T07_PER_PUSH
+    <set>
+      <if test="PerNo!=null">PER_NO = #{PerNo},</if>
+      <if test="RegisitrationID!=null">REGISITRATIONID = #{RegisitrationID},</if>
+      <if test="IMSI!=null">IMSI = #{IMSI},</if>
+      <if test="LastDate!=null">LAST_DATE = curdate(),</if>
+      <if test="LastTime!=null">LAST_TIME = curtime(),</if>
+    </set>
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <!-- Key Delete -->
+  <delete id="T07_PER_PUSH_DELETE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T07PerPushDTO">
+    DELETE FROM T07_PER_PUSH
+    WHERE
+      ID = #{ID} 
+  </delete>
+
+  <!-- Key Search -->
+  <select id="T07_PER_PUSH_FIND" resultType="com.maxiaohua.genealogy.main.db.tbl.T07PerPushDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      REGISITRATIONID AS "RegisitrationID" ,
+      IMSI AS "IMSI" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T07_PER_PUSH
+    WHERE
+      ID = #{ID} 
+  </select>
+
+  <!-- Key Search（For Update） -->
+  <select id="T07_PER_PUSH_FIND_FOR_UPDATE" resultType="com.maxiaohua.genealogy.main.db.tbl.T07PerPushDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      REGISITRATIONID AS "RegisitrationID" ,
+      IMSI AS "IMSI" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T07_PER_PUSH
+    WHERE
+      ID = #{ID} 
+    FOR UPDATE
+  </select>
+
+  <!-- AND Search -->
+  <select id="T07_PER_PUSH_EQUAL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T07PerPushDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      REGISITRATIONID AS "RegisitrationID" ,
+      IMSI AS "IMSI" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T07_PER_PUSH
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="PerNo != null">AND PER_NO = #{PerNo}</if>
+      <if test="RegisitrationID != null">AND REGISITRATIONID = #{RegisitrationID}</if>
+      <if test="IMSI != null">AND IMSI = #{IMSI}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search(OR) -->
+  <select id="T07_PER_PUSH_EQUAL_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T07PerPushDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      REGISITRATIONID AS "RegisitrationID" ,
+      IMSI AS "IMSI" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T07_PER_PUSH
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="PerNo != null">OR PER_NO = #{PerNo}</if>
+      <if test="RegisitrationID != null">OR REGISITRATIONID = #{RegisitrationID}</if>
+      <if test="IMSI != null">OR IMSI = #{IMSI}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE -->
+  <select id="T07_PER_PUSH_LIKE_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T07PerPushDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      REGISITRATIONID AS "RegisitrationID" ,
+      IMSI AS "IMSI" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T07_PER_PUSH
+    <where>
+      <if test="ID != null">AND ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="PerNo != null">AND PER_NO LIKE '%'|| #{PerNo} ||'%'</if>
+      <if test="RegisitrationID != null">AND REGISITRATIONID LIKE '%'|| #{RegisitrationID} ||'%'</if>
+      <if test="IMSI != null">AND IMSI LIKE '%'|| #{IMSI} ||'%'</if>
+      <if test="LastDate != null">AND LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">AND LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE(OR) -->
+  <select id="T07_PER_PUSH_LIKE_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T07PerPushDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      REGISITRATIONID AS "RegisitrationID" ,
+      IMSI AS "IMSI" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T07_PER_PUSH
+    <where>
+      <if test="ID != null">OR ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="PerNo != null">OR PER_NO LIKE '%'|| #{PerNo} ||'%'</if>
+      <if test="RegisitrationID != null">OR REGISITRATIONID LIKE '%'|| #{RegisitrationID} ||'%'</if>
+      <if test="IMSI != null">OR IMSI LIKE '%'|| #{IMSI} ||'%'</if>
+      <if test="LastDate != null">OR LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">OR LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Customize Search -->
+  <select id="T07_PER_PUSH_SQL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T07PerPushDTO" parameterType="java.util.Map">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      REGISITRATIONID AS "RegisitrationID" ,
+      IMSI AS "IMSI" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T07_PER_PUSH
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Count -->
+  <select id="T07_PER_PUSH_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T07_PER_PUSH
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="PerNo != null">AND PER_NO = #{PerNo}</if>
+      <if test="RegisitrationID != null">AND REGISITRATIONID = #{RegisitrationID}</if>
+      <if test="IMSI != null">AND IMSI = #{IMSI}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count OR -->
+  <select id="T07_PER_PUSH_COUNT_OR" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T07_PER_PUSH
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="PerNo != null">OR PER_NO = #{PerNo}</if>
+      <if test="RegisitrationID != null">OR REGISITRATIONID = #{RegisitrationID}</if>
+      <if test="IMSI != null">OR IMSI = #{IMSI}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count Customize -->
+  <select id="T07_PER_PUSH_COUNT_SEARCH" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    FROM T07_PER_PUSH
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+  </select>
+</mapper>

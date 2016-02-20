@@ -1,0 +1,8 @@
+#Tomcat publish data
+#Mon Feb 08 12:37:01 CST 2016
+org.eclipse.jst.j2ee.server\:com.maxiaohua.genealogy.main.db=WEB-INF/lib/com.maxiaohua.genealogy.main.db.jar
+org.eclipse.jst.j2ee.server\:com.maxiaohua.genealogy.fw.web=WEB-INF/lib/com.maxiaohua.genealogy.fw.web.jar
+org.eclipse.jst.j2ee.server\:com.maxiaohua.genealogy.fw.dao=WEB-INF/lib/com.maxiaohua.genealogy.fw.dao.jar
+org.eclipse.jst.j2ee.server\:com.maxiaohua.genealogy.main.biz=WEB-INF/lib/com.maxiaohua.genealogy.main.biz.jar
+org.eclipse.jst.j2ee.server\:com.maxiaohua.genealogy.main.service=WEB-INF/lib/com.maxiaohua.genealogy.main.service.jar
+org.eclipse.jst.j2ee.server\:com.maxiaohua.genealogy.fw.core=WEB-INF/lib/com.maxiaohua.genealogy.fw.core.jar

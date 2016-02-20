@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql">
+
+  <!-- Table Insert -->
+  <insert id="T01_GENEALOGY_INSERT" parameterType="com.maxiaohua.genealogy.main.db.tbl.T01GenealogyDTO">
+    INSERT INTO T01_GENEALOGY (
+      NO ,
+      FIRST_NAME ,
+      ARMS ,
+      INFOMATION ,
+      DEL_FLG ,
+      CREATE_USER ,
+      CREATE_DATE ,
+      CREATE_TIME ,
+      LAST_USER ,
+      LAST_DATE ,
+      LAST_TIME 
+    ) VALUES (
+      #{NO} ,
+      #{FirstName} ,
+      #{Arms} ,
+      #{Infomation} ,
+      #{DelFlg} ,
+      #{CreateUser} ,
+      #{CreateDate} ,
+      #{CreateTime} ,
+      #{LastUser} ,
+      curdate() ,
+      curtime() 
+    )
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty = "ID">
+    SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+  </insert>
+
+  <!-- Table Update -->
+  <update id="T01_GENEALOGY_FULL_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T01GenealogyDTO">
+    UPDATE T01_GENEALOGY SET
+      NO = #{NO} ,
+      FIRST_NAME = #{FirstName} ,
+      ARMS = #{Arms} ,
+      INFOMATION = #{Infomation} ,
+      DEL_FLG = #{DelFlg} ,
+      CREATE_USER = #{CreateUser} ,
+      CREATE_DATE = #{CreateDate} ,
+      CREATE_TIME = #{CreateTime} ,
+      LAST_USER = #{LastUser} ,
+      LAST_DATE = curdate() ,
+      LAST_TIME = curtime() 
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <update id="T01_GENEALOGY_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T01GenealogyDTO">
+    UPDATE T01_GENEALOGY
+    <set>
+      <if test="NO!=null">NO = #{NO},</if>
+      <if test="FirstName!=null">FIRST_NAME = #{FirstName},</if>
+      <if test="Arms!=null">ARMS = #{Arms},</if>
+      <if test="Infomation!=null">INFOMATION = #{Infomation},</if>
+      <if test="DelFlg!=null">DEL_FLG = #{DelFlg},</if>
+      <if test="CreateUser!=null">CREATE_USER = #{CreateUser},</if>
+      <if test="CreateDate!=null">CREATE_DATE = #{CreateDate},</if>
+      <if test="CreateTime!=null">CREATE_TIME = #{CreateTime},</if>
+      <if test="LastUser!=null">LAST_USER = #{LastUser},</if>
+      <if test="LastDate!=null">LAST_DATE = curdate(),</if>
+      <if test="LastTime!=null">LAST_TIME = curtime(),</if>
+    </set>
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <!-- Key Delete -->
+  <delete id="T01_GENEALOGY_DELETE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T01GenealogyDTO">
+    DELETE FROM T01_GENEALOGY
+    WHERE
+      ID = #{ID} 
+  </delete>
+
+  <!-- Key Search -->
+  <select id="T01_GENEALOGY_FIND" resultType="com.maxiaohua.genealogy.main.db.tbl.T01GenealogyDTO">
+    SELECT
+      ID AS "ID" ,
+      NO AS "NO" ,
+      FIRST_NAME AS "FirstName" ,
+      ARMS AS "Arms" ,
+      INFOMATION AS "Infomation" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T01_GENEALOGY
+    WHERE
+      ID = #{ID} 
+  </select>
+
+  <!-- Key Search（For Update） -->
+  <select id="T01_GENEALOGY_FIND_FOR_UPDATE" resultType="com.maxiaohua.genealogy.main.db.tbl.T01GenealogyDTO">
+    SELECT
+      ID AS "ID" ,
+      NO AS "NO" ,
+      FIRST_NAME AS "FirstName" ,
+      ARMS AS "Arms" ,
+      INFOMATION AS "Infomation" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T01_GENEALOGY
+    WHERE
+      ID = #{ID} 
+    FOR UPDATE
+  </select>
+
+  <!-- AND Search -->
+  <select id="T01_GENEALOGY_EQUAL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T01GenealogyDTO">
+    SELECT
+      ID AS "ID" ,
+      NO AS "NO" ,
+      FIRST_NAME AS "FirstName" ,
+      ARMS AS "Arms" ,
+      INFOMATION AS "Infomation" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T01_GENEALOGY
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="NO != null">AND NO = #{NO}</if>
+      <if test="FirstName != null">AND FIRST_NAME = #{FirstName}</if>
+      <if test="Arms != null">AND ARMS = #{Arms}</if>
+      <if test="Infomation != null">AND INFOMATION = #{Infomation}</if>
+      <if test="DelFlg != null">AND DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">AND LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search(OR) -->
+  <select id="T01_GENEALOGY_EQUAL_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T01GenealogyDTO">
+    SELECT
+      ID AS "ID" ,
+      NO AS "NO" ,
+      FIRST_NAME AS "FirstName" ,
+      ARMS AS "Arms" ,
+      INFOMATION AS "Infomation" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T01_GENEALOGY
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="NO != null">OR NO = #{NO}</if>
+      <if test="FirstName != null">OR FIRST_NAME = #{FirstName}</if>
+      <if test="Arms != null">OR ARMS = #{Arms}</if>
+      <if test="Infomation != null">OR INFOMATION = #{Infomation}</if>
+      <if test="DelFlg != null">OR DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">OR LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE -->
+  <select id="T01_GENEALOGY_LIKE_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T01GenealogyDTO">
+    SELECT
+      ID AS "ID" ,
+      NO AS "NO" ,
+      FIRST_NAME AS "FirstName" ,
+      ARMS AS "Arms" ,
+      INFOMATION AS "Infomation" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T01_GENEALOGY
+    <where>
+      <if test="ID != null">AND ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="NO != null">AND NO LIKE '%'|| #{NO} ||'%'</if>
+      <if test="FirstName != null">AND FIRST_NAME LIKE '%'|| #{FirstName} ||'%'</if>
+      <if test="Arms != null">AND ARMS LIKE '%'|| #{Arms} ||'%'</if>
+      <if test="Infomation != null">AND INFOMATION LIKE '%'|| #{Infomation} ||'%'</if>
+      <if test="DelFlg != null">AND DEL_FLG LIKE '%'|| #{DelFlg} ||'%'</if>
+      <if test="CreateUser != null">AND CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">AND CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">AND CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+      <if test="LastUser != null">AND LAST_USER LIKE '%'|| #{LastUser} ||'%'</if>
+      <if test="LastDate != null">AND LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">AND LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE(OR) -->
+  <select id="T01_GENEALOGY_LIKE_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T01GenealogyDTO">
+    SELECT
+      ID AS "ID" ,
+      NO AS "NO" ,
+      FIRST_NAME AS "FirstName" ,
+      ARMS AS "Arms" ,
+      INFOMATION AS "Infomation" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T01_GENEALOGY
+    <where>
+      <if test="ID != null">OR ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="NO != null">OR NO LIKE '%'|| #{NO} ||'%'</if>
+      <if test="FirstName != null">OR FIRST_NAME LIKE '%'|| #{FirstName} ||'%'</if>
+      <if test="Arms != null">OR ARMS LIKE '%'|| #{Arms} ||'%'</if>
+      <if test="Infomation != null">OR INFOMATION LIKE '%'|| #{Infomation} ||'%'</if>
+      <if test="DelFlg != null">OR DEL_FLG LIKE '%'|| #{DelFlg} ||'%'</if>
+      <if test="CreateUser != null">OR CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">OR CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">OR CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+      <if test="LastUser != null">OR LAST_USER LIKE '%'|| #{LastUser} ||'%'</if>
+      <if test="LastDate != null">OR LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">OR LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Customize Search -->
+  <select id="T01_GENEALOGY_SQL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T01GenealogyDTO" parameterType="java.util.Map">
+    SELECT
+      ID AS "ID" ,
+      NO AS "NO" ,
+      FIRST_NAME AS "FirstName" ,
+      ARMS AS "Arms" ,
+      INFOMATION AS "Infomation" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T01_GENEALOGY
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Count -->
+  <select id="T01_GENEALOGY_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T01_GENEALOGY
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="NO != null">AND NO = #{NO}</if>
+      <if test="FirstName != null">AND FIRST_NAME = #{FirstName}</if>
+      <if test="Arms != null">AND ARMS = #{Arms}</if>
+      <if test="Infomation != null">AND INFOMATION = #{Infomation}</if>
+      <if test="DelFlg != null">AND DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">AND LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count OR -->
+  <select id="T01_GENEALOGY_COUNT_OR" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T01_GENEALOGY
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="NO != null">OR NO = #{NO}</if>
+      <if test="FirstName != null">OR FIRST_NAME = #{FirstName}</if>
+      <if test="Arms != null">OR ARMS = #{Arms}</if>
+      <if test="Infomation != null">OR INFOMATION = #{Infomation}</if>
+      <if test="DelFlg != null">OR DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">OR LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count Customize -->
+  <select id="T01_GENEALOGY_COUNT_SEARCH" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    FROM T01_GENEALOGY
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+  </select>
+</mapper>

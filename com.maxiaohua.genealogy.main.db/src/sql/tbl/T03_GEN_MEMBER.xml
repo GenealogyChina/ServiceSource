@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql">
+
+  <!-- Table Insert -->
+  <insert id="T03_GEN_MEMBER_INSERT" parameterType="com.maxiaohua.genealogy.main.db.tbl.T03GenMemberDTO">
+    INSERT INTO T03_GEN_MEMBER (
+      GEN_NO ,
+      PER_NO ,
+      IS_ONWER ,
+      CREATE_USER ,
+      CREATE_DATE ,
+      CREATE_TIME 
+    ) VALUES (
+      #{GenNo} ,
+      #{PerNo} ,
+      #{IsOnwer} ,
+      #{CreateUser} ,
+      #{CreateDate} ,
+      #{CreateTime} 
+    )
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty = "ID">
+    SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+  </insert>
+
+  <!-- Table Update -->
+  <update id="T03_GEN_MEMBER_FULL_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T03GenMemberDTO">
+    UPDATE T03_GEN_MEMBER SET
+      GEN_NO = #{GenNo} ,
+      PER_NO = #{PerNo} ,
+      IS_ONWER = #{IsOnwer} ,
+      CREATE_USER = #{CreateUser} ,
+      CREATE_DATE = #{CreateDate} ,
+      CREATE_TIME = #{CreateTime} 
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <update id="T03_GEN_MEMBER_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T03GenMemberDTO">
+    UPDATE T03_GEN_MEMBER
+    <set>
+      <if test="GenNo!=null">GEN_NO = #{GenNo},</if>
+      <if test="PerNo!=null">PER_NO = #{PerNo},</if>
+      <if test="IsOnwer!=null">IS_ONWER = #{IsOnwer},</if>
+      <if test="CreateUser!=null">CREATE_USER = #{CreateUser},</if>
+      <if test="CreateDate!=null">CREATE_DATE = #{CreateDate},</if>
+      <if test="CreateTime!=null">CREATE_TIME = #{CreateTime},</if>
+    </set>
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <!-- Key Delete -->
+  <delete id="T03_GEN_MEMBER_DELETE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T03GenMemberDTO">
+    DELETE FROM T03_GEN_MEMBER
+    WHERE
+      ID = #{ID} 
+  </delete>
+
+  <!-- Key Search -->
+  <select id="T03_GEN_MEMBER_FIND" resultType="com.maxiaohua.genealogy.main.db.tbl.T03GenMemberDTO">
+    SELECT
+      ID AS "ID" ,
+      GEN_NO AS "GenNo" ,
+      PER_NO AS "PerNo" ,
+      IS_ONWER AS "IsOnwer" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" 
+    FROM T03_GEN_MEMBER
+    WHERE
+      ID = #{ID} 
+  </select>
+
+  <!-- Key Search（For Update） -->
+  <select id="T03_GEN_MEMBER_FIND_FOR_UPDATE" resultType="com.maxiaohua.genealogy.main.db.tbl.T03GenMemberDTO">
+    SELECT
+      ID AS "ID" ,
+      GEN_NO AS "GenNo" ,
+      PER_NO AS "PerNo" ,
+      IS_ONWER AS "IsOnwer" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" 
+    FROM T03_GEN_MEMBER
+    WHERE
+      ID = #{ID} 
+    FOR UPDATE
+  </select>
+
+  <!-- AND Search -->
+  <select id="T03_GEN_MEMBER_EQUAL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T03GenMemberDTO">
+    SELECT
+      ID AS "ID" ,
+      GEN_NO AS "GenNo" ,
+      PER_NO AS "PerNo" ,
+      IS_ONWER AS "IsOnwer" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" 
+    FROM T03_GEN_MEMBER
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="GenNo != null">AND GEN_NO = #{GenNo}</if>
+      <if test="PerNo != null">AND PER_NO = #{PerNo}</if>
+      <if test="IsOnwer != null">AND IS_ONWER = #{IsOnwer}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search(OR) -->
+  <select id="T03_GEN_MEMBER_EQUAL_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T03GenMemberDTO">
+    SELECT
+      ID AS "ID" ,
+      GEN_NO AS "GenNo" ,
+      PER_NO AS "PerNo" ,
+      IS_ONWER AS "IsOnwer" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" 
+    FROM T03_GEN_MEMBER
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="GenNo != null">OR GEN_NO = #{GenNo}</if>
+      <if test="PerNo != null">OR PER_NO = #{PerNo}</if>
+      <if test="IsOnwer != null">OR IS_ONWER = #{IsOnwer}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE -->
+  <select id="T03_GEN_MEMBER_LIKE_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T03GenMemberDTO">
+    SELECT
+      ID AS "ID" ,
+      GEN_NO AS "GenNo" ,
+      PER_NO AS "PerNo" ,
+      IS_ONWER AS "IsOnwer" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" 
+    FROM T03_GEN_MEMBER
+    <where>
+      <if test="ID != null">AND ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="GenNo != null">AND GEN_NO LIKE '%'|| #{GenNo} ||'%'</if>
+      <if test="PerNo != null">AND PER_NO LIKE '%'|| #{PerNo} ||'%'</if>
+      <if test="IsOnwer != null">AND IS_ONWER LIKE '%'|| #{IsOnwer} ||'%'</if>
+      <if test="CreateUser != null">AND CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">AND CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">AND CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE(OR) -->
+  <select id="T03_GEN_MEMBER_LIKE_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T03GenMemberDTO">
+    SELECT
+      ID AS "ID" ,
+      GEN_NO AS "GenNo" ,
+      PER_NO AS "PerNo" ,
+      IS_ONWER AS "IsOnwer" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" 
+    FROM T03_GEN_MEMBER
+    <where>
+      <if test="ID != null">OR ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="GenNo != null">OR GEN_NO LIKE '%'|| #{GenNo} ||'%'</if>
+      <if test="PerNo != null">OR PER_NO LIKE '%'|| #{PerNo} ||'%'</if>
+      <if test="IsOnwer != null">OR IS_ONWER LIKE '%'|| #{IsOnwer} ||'%'</if>
+      <if test="CreateUser != null">OR CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">OR CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">OR CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Customize Search -->
+  <select id="T03_GEN_MEMBER_SQL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T03GenMemberDTO" parameterType="java.util.Map">
+    SELECT
+      ID AS "ID" ,
+      GEN_NO AS "GenNo" ,
+      PER_NO AS "PerNo" ,
+      IS_ONWER AS "IsOnwer" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" 
+    FROM T03_GEN_MEMBER
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Count -->
+  <select id="T03_GEN_MEMBER_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T03_GEN_MEMBER
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="GenNo != null">AND GEN_NO = #{GenNo}</if>
+      <if test="PerNo != null">AND PER_NO = #{PerNo}</if>
+      <if test="IsOnwer != null">AND IS_ONWER = #{IsOnwer}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+    </where>
+  </select>
+
+  <!-- Count OR -->
+  <select id="T03_GEN_MEMBER_COUNT_OR" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T03_GEN_MEMBER
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="GenNo != null">OR GEN_NO = #{GenNo}</if>
+      <if test="PerNo != null">OR PER_NO = #{PerNo}</if>
+      <if test="IsOnwer != null">OR IS_ONWER = #{IsOnwer}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+    </where>
+  </select>
+
+  <!-- Count Customize -->
+  <select id="T03_GEN_MEMBER_COUNT_SEARCH" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    FROM T03_GEN_MEMBER
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+  </select>
+</mapper>

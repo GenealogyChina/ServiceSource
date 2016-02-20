@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql">
+
+  <!-- Table Insert -->
+  <insert id="T13_GEN_JOIN_INSERT" parameterType="com.maxiaohua.genealogy.main.db.tbl.T13GenJoinDTO">
+    INSERT INTO T13_GEN_JOIN (
+      ID ,
+      NO ,
+      GEN_NO ,
+      STATUS ,
+      APPLICATION_TEXT ,
+      REPLY_TEXT ,
+      CREATE_USER ,
+      CREATE_DATE ,
+      CREATE_TIME ,
+      LAST_USER ,
+      LAST_DATE ,
+      LAST_TIME 
+    ) VALUES (
+      #{Id} ,
+      #{No} ,
+      #{GenNo} ,
+      #{Status} ,
+      #{ApplicationText} ,
+      #{ReplyText} ,
+      #{CreateUser} ,
+      #{CreateDate} ,
+      #{CreateTime} ,
+      #{LastUser} ,
+      curdate() ,
+      curtime() 
+    )
+  </insert>
+
+  <!-- Table Update -->
+  <update id="T13_GEN_JOIN_FULL_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T13GenJoinDTO">
+    UPDATE T13_GEN_JOIN SET
+      NO = #{No} ,
+      GEN_NO = #{GenNo} ,
+      STATUS = #{Status} ,
+      APPLICATION_TEXT = #{ApplicationText} ,
+      REPLY_TEXT = #{ReplyText} ,
+      CREATE_USER = #{CreateUser} ,
+      CREATE_DATE = #{CreateDate} ,
+      CREATE_TIME = #{CreateTime} ,
+      LAST_USER = #{LastUser} ,
+      LAST_DATE = curdate() ,
+      LAST_TIME = curtime() 
+    WHERE
+      ID = #{Id} 
+  </update>
+
+  <update id="T13_GEN_JOIN_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T13GenJoinDTO">
+    UPDATE T13_GEN_JOIN
+    <set>
+      <if test="No!=null">NO = #{No},</if>
+      <if test="GenNo!=null">GEN_NO = #{GenNo},</if>
+      <if test="Status!=null">STATUS = #{Status},</if>
+      <if test="ApplicationText!=null">APPLICATION_TEXT = #{ApplicationText},</if>
+      <if test="ReplyText!=null">REPLY_TEXT = #{ReplyText},</if>
+      <if test="CreateUser!=null">CREATE_USER = #{CreateUser},</if>
+      <if test="CreateDate!=null">CREATE_DATE = #{CreateDate},</if>
+      <if test="CreateTime!=null">CREATE_TIME = #{CreateTime},</if>
+      <if test="LastUser!=null">LAST_USER = #{LastUser},</if>
+      <if test="LastDate!=null">LAST_DATE = curdate(),</if>
+      <if test="LastTime!=null">LAST_TIME = curtime(),</if>
+    </set>
+    WHERE
+      ID = #{Id} 
+  </update>
+
+  <!-- Key Delete -->
+  <delete id="T13_GEN_JOIN_DELETE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T13GenJoinDTO">
+    DELETE FROM T13_GEN_JOIN
+    WHERE
+      ID = #{Id} 
+  </delete>
+
+  <!-- Key Search -->
+  <select id="T13_GEN_JOIN_FIND" resultType="com.maxiaohua.genealogy.main.db.tbl.T13GenJoinDTO">
+    SELECT
+      ID AS "Id" ,
+      NO AS "No" ,
+      GEN_NO AS "GenNo" ,
+      STATUS AS "Status" ,
+      APPLICATION_TEXT AS "ApplicationText" ,
+      REPLY_TEXT AS "ReplyText" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T13_GEN_JOIN
+    WHERE
+      ID = #{Id} 
+  </select>
+
+  <!-- Key Search（For Update） -->
+  <select id="T13_GEN_JOIN_FIND_FOR_UPDATE" resultType="com.maxiaohua.genealogy.main.db.tbl.T13GenJoinDTO">
+    SELECT
+      ID AS "Id" ,
+      NO AS "No" ,
+      GEN_NO AS "GenNo" ,
+      STATUS AS "Status" ,
+      APPLICATION_TEXT AS "ApplicationText" ,
+      REPLY_TEXT AS "ReplyText" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T13_GEN_JOIN
+    WHERE
+      ID = #{Id} 
+    FOR UPDATE
+  </select>
+
+  <!-- AND Search -->
+  <select id="T13_GEN_JOIN_EQUAL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T13GenJoinDTO">
+    SELECT
+      ID AS "Id" ,
+      NO AS "No" ,
+      GEN_NO AS "GenNo" ,
+      STATUS AS "Status" ,
+      APPLICATION_TEXT AS "ApplicationText" ,
+      REPLY_TEXT AS "ReplyText" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T13_GEN_JOIN
+    <where>
+      <if test="Id != null">AND ID = #{Id}</if>
+      <if test="No != null">AND NO = #{No}</if>
+      <if test="GenNo != null">AND GEN_NO = #{GenNo}</if>
+      <if test="Status != null">AND STATUS = #{Status}</if>
+      <if test="ApplicationText != null">AND APPLICATION_TEXT = #{ApplicationText}</if>
+      <if test="ReplyText != null">AND REPLY_TEXT = #{ReplyText}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">AND LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search(OR) -->
+  <select id="T13_GEN_JOIN_EQUAL_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T13GenJoinDTO">
+    SELECT
+      ID AS "Id" ,
+      NO AS "No" ,
+      GEN_NO AS "GenNo" ,
+      STATUS AS "Status" ,
+      APPLICATION_TEXT AS "ApplicationText" ,
+      REPLY_TEXT AS "ReplyText" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T13_GEN_JOIN
+    <where>
+      <if test="Id != null">OR ID = #{Id}</if>
+      <if test="No != null">OR NO = #{No}</if>
+      <if test="GenNo != null">OR GEN_NO = #{GenNo}</if>
+      <if test="Status != null">OR STATUS = #{Status}</if>
+      <if test="ApplicationText != null">OR APPLICATION_TEXT = #{ApplicationText}</if>
+      <if test="ReplyText != null">OR REPLY_TEXT = #{ReplyText}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">OR LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE -->
+  <select id="T13_GEN_JOIN_LIKE_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T13GenJoinDTO">
+    SELECT
+      ID AS "Id" ,
+      NO AS "No" ,
+      GEN_NO AS "GenNo" ,
+      STATUS AS "Status" ,
+      APPLICATION_TEXT AS "ApplicationText" ,
+      REPLY_TEXT AS "ReplyText" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T13_GEN_JOIN
+    <where>
+      <if test="Id != null">AND ID LIKE '%'|| #{Id} ||'%'</if>
+      <if test="No != null">AND NO LIKE '%'|| #{No} ||'%'</if>
+      <if test="GenNo != null">AND GEN_NO LIKE '%'|| #{GenNo} ||'%'</if>
+      <if test="Status != null">AND STATUS LIKE '%'|| #{Status} ||'%'</if>
+      <if test="ApplicationText != null">AND APPLICATION_TEXT LIKE '%'|| #{ApplicationText} ||'%'</if>
+      <if test="ReplyText != null">AND REPLY_TEXT LIKE '%'|| #{ReplyText} ||'%'</if>
+      <if test="CreateUser != null">AND CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">AND CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">AND CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+      <if test="LastUser != null">AND LAST_USER LIKE '%'|| #{LastUser} ||'%'</if>
+      <if test="LastDate != null">AND LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">AND LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE(OR) -->
+  <select id="T13_GEN_JOIN_LIKE_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T13GenJoinDTO">
+    SELECT
+      ID AS "Id" ,
+      NO AS "No" ,
+      GEN_NO AS "GenNo" ,
+      STATUS AS "Status" ,
+      APPLICATION_TEXT AS "ApplicationText" ,
+      REPLY_TEXT AS "ReplyText" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T13_GEN_JOIN
+    <where>
+      <if test="Id != null">OR ID LIKE '%'|| #{Id} ||'%'</if>
+      <if test="No != null">OR NO LIKE '%'|| #{No} ||'%'</if>
+      <if test="GenNo != null">OR GEN_NO LIKE '%'|| #{GenNo} ||'%'</if>
+      <if test="Status != null">OR STATUS LIKE '%'|| #{Status} ||'%'</if>
+      <if test="ApplicationText != null">OR APPLICATION_TEXT LIKE '%'|| #{ApplicationText} ||'%'</if>
+      <if test="ReplyText != null">OR REPLY_TEXT LIKE '%'|| #{ReplyText} ||'%'</if>
+      <if test="CreateUser != null">OR CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">OR CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">OR CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+      <if test="LastUser != null">OR LAST_USER LIKE '%'|| #{LastUser} ||'%'</if>
+      <if test="LastDate != null">OR LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">OR LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Customize Search -->
+  <select id="T13_GEN_JOIN_SQL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T13GenJoinDTO" parameterType="java.util.Map">
+    SELECT
+      ID AS "Id" ,
+      NO AS "No" ,
+      GEN_NO AS "GenNo" ,
+      STATUS AS "Status" ,
+      APPLICATION_TEXT AS "ApplicationText" ,
+      REPLY_TEXT AS "ReplyText" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T13_GEN_JOIN
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Count -->
+  <select id="T13_GEN_JOIN_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T13_GEN_JOIN
+    <where>
+      <if test="Id != null">AND ID = #{Id}</if>
+      <if test="No != null">AND NO = #{No}</if>
+      <if test="GenNo != null">AND GEN_NO = #{GenNo}</if>
+      <if test="Status != null">AND STATUS = #{Status}</if>
+      <if test="ApplicationText != null">AND APPLICATION_TEXT = #{ApplicationText}</if>
+      <if test="ReplyText != null">AND REPLY_TEXT = #{ReplyText}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">AND LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count OR -->
+  <select id="T13_GEN_JOIN_COUNT_OR" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T13_GEN_JOIN
+    <where>
+      <if test="Id != null">OR ID = #{Id}</if>
+      <if test="No != null">OR NO = #{No}</if>
+      <if test="GenNo != null">OR GEN_NO = #{GenNo}</if>
+      <if test="Status != null">OR STATUS = #{Status}</if>
+      <if test="ApplicationText != null">OR APPLICATION_TEXT = #{ApplicationText}</if>
+      <if test="ReplyText != null">OR REPLY_TEXT = #{ReplyText}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">OR LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count Customize -->
+  <select id="T13_GEN_JOIN_COUNT_SEARCH" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    FROM T13_GEN_JOIN
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+  </select>
+</mapper>

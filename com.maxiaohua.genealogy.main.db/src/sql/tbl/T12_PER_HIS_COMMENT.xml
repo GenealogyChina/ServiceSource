@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql">
+
+  <!-- Table Insert -->
+  <insert id="T12_PER_HIS_COMMENT_INSERT" parameterType="com.maxiaohua.genealogy.main.db.tbl.T12PerHisCommentDTO">
+    INSERT INTO T12_PER_HIS_COMMENT (
+      PER_HIS_NO ,
+      COMMENT 
+    ) VALUES (
+      #{PerHisNo} ,
+      #{Comment} 
+    )
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty = "ID">
+    SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+  </insert>
+
+  <!-- Table Update -->
+  <update id="T12_PER_HIS_COMMENT_FULL_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T12PerHisCommentDTO">
+    UPDATE T12_PER_HIS_COMMENT SET
+      PER_HIS_NO = #{PerHisNo} ,
+      COMMENT = #{Comment} 
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <update id="T12_PER_HIS_COMMENT_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T12PerHisCommentDTO">
+    UPDATE T12_PER_HIS_COMMENT
+    <set>
+      <if test="PerHisNo!=null">PER_HIS_NO = #{PerHisNo},</if>
+      <if test="Comment!=null">COMMENT = #{Comment},</if>
+    </set>
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <!-- Key Delete -->
+  <delete id="T12_PER_HIS_COMMENT_DELETE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T12PerHisCommentDTO">
+    DELETE FROM T12_PER_HIS_COMMENT
+    WHERE
+      ID = #{ID} 
+  </delete>
+
+  <!-- Key Search -->
+  <select id="T12_PER_HIS_COMMENT_FIND" resultType="com.maxiaohua.genealogy.main.db.tbl.T12PerHisCommentDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      COMMENT AS "Comment" 
+    FROM T12_PER_HIS_COMMENT
+    WHERE
+      ID = #{ID} 
+  </select>
+
+  <!-- Key Search（For Update） -->
+  <select id="T12_PER_HIS_COMMENT_FIND_FOR_UPDATE" resultType="com.maxiaohua.genealogy.main.db.tbl.T12PerHisCommentDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      COMMENT AS "Comment" 
+    FROM T12_PER_HIS_COMMENT
+    WHERE
+      ID = #{ID} 
+    FOR UPDATE
+  </select>
+
+  <!-- AND Search -->
+  <select id="T12_PER_HIS_COMMENT_EQUAL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T12PerHisCommentDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      COMMENT AS "Comment" 
+    FROM T12_PER_HIS_COMMENT
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="PerHisNo != null">AND PER_HIS_NO = #{PerHisNo}</if>
+      <if test="Comment != null">AND COMMENT = #{Comment}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search(OR) -->
+  <select id="T12_PER_HIS_COMMENT_EQUAL_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T12PerHisCommentDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      COMMENT AS "Comment" 
+    FROM T12_PER_HIS_COMMENT
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="PerHisNo != null">OR PER_HIS_NO = #{PerHisNo}</if>
+      <if test="Comment != null">OR COMMENT = #{Comment}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE -->
+  <select id="T12_PER_HIS_COMMENT_LIKE_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T12PerHisCommentDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      COMMENT AS "Comment" 
+    FROM T12_PER_HIS_COMMENT
+    <where>
+      <if test="ID != null">AND ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="PerHisNo != null">AND PER_HIS_NO LIKE '%'|| #{PerHisNo} ||'%'</if>
+      <if test="Comment != null">AND COMMENT LIKE '%'|| #{Comment} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE(OR) -->
+  <select id="T12_PER_HIS_COMMENT_LIKE_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T12PerHisCommentDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      COMMENT AS "Comment" 
+    FROM T12_PER_HIS_COMMENT
+    <where>
+      <if test="ID != null">OR ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="PerHisNo != null">OR PER_HIS_NO LIKE '%'|| #{PerHisNo} ||'%'</if>
+      <if test="Comment != null">OR COMMENT LIKE '%'|| #{Comment} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Customize Search -->
+  <select id="T12_PER_HIS_COMMENT_SQL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T12PerHisCommentDTO" parameterType="java.util.Map">
+    SELECT
+      ID AS "ID" ,
+      PER_HIS_NO AS "PerHisNo" ,
+      COMMENT AS "Comment" 
+    FROM T12_PER_HIS_COMMENT
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Count -->
+  <select id="T12_PER_HIS_COMMENT_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T12_PER_HIS_COMMENT
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="PerHisNo != null">AND PER_HIS_NO = #{PerHisNo}</if>
+      <if test="Comment != null">AND COMMENT = #{Comment}</if>
+    </where>
+  </select>
+
+  <!-- Count OR -->
+  <select id="T12_PER_HIS_COMMENT_COUNT_OR" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T12_PER_HIS_COMMENT
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="PerHisNo != null">OR PER_HIS_NO = #{PerHisNo}</if>
+      <if test="Comment != null">OR COMMENT = #{Comment}</if>
+    </where>
+  </select>
+
+  <!-- Count Customize -->
+  <select id="T12_PER_HIS_COMMENT_COUNT_SEARCH" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    FROM T12_PER_HIS_COMMENT
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+  </select>
+</mapper>

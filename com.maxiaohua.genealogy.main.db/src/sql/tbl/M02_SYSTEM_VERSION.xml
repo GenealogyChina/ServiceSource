@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql">
+
+  <!-- Table Insert -->
+  <insert id="M02_SYSTEM_VERSION_INSERT" parameterType="com.maxiaohua.genealogy.main.db.tbl.M02SystemVersionDTO">
+    INSERT INTO M02_SYSTEM_VERSION (
+      IMSI ,
+      CHANNEL ,
+      VERSION ,
+      LOAD_PATH ,
+      DESCRIP ,
+      DEL_FLG ,
+      IS_FORCE ,
+      LAST_DATE ,
+      LAST_TIME 
+    ) VALUES (
+      #{Imsi} ,
+      #{Channel} ,
+      #{Version} ,
+      #{LoadPath} ,
+      #{Descrip} ,
+      #{DelFlg} ,
+      #{IsForce} ,
+      curdate() ,
+      curtime() 
+    )
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty = "Id">
+    SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+  </insert>
+
+  <!-- Table Update -->
+  <update id="M02_SYSTEM_VERSION_FULL_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.M02SystemVersionDTO">
+    UPDATE M02_SYSTEM_VERSION SET
+      IMSI = #{Imsi} ,
+      CHANNEL = #{Channel} ,
+      VERSION = #{Version} ,
+      LOAD_PATH = #{LoadPath} ,
+      DESCRIP = #{Descrip} ,
+      DEL_FLG = #{DelFlg} ,
+      IS_FORCE = #{IsForce} ,
+      LAST_DATE = curdate() ,
+      LAST_TIME = curtime() 
+    WHERE
+      ID = #{Id} 
+  </update>
+
+  <update id="M02_SYSTEM_VERSION_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.M02SystemVersionDTO">
+    UPDATE M02_SYSTEM_VERSION
+    <set>
+      <if test="Imsi!=null">IMSI = #{Imsi},</if>
+      <if test="Channel!=null">CHANNEL = #{Channel},</if>
+      <if test="Version!=null">VERSION = #{Version},</if>
+      <if test="LoadPath!=null">LOAD_PATH = #{LoadPath},</if>
+      <if test="Descrip!=null">DESCRIP = #{Descrip},</if>
+      <if test="DelFlg!=null">DEL_FLG = #{DelFlg},</if>
+      <if test="IsForce!=null">IS_FORCE = #{IsForce},</if>
+      <if test="LastDate!=null">LAST_DATE = curdate(),</if>
+      <if test="LastTime!=null">LAST_TIME = curtime(),</if>
+    </set>
+    WHERE
+      ID = #{Id} 
+  </update>
+
+  <!-- Key Delete -->
+  <delete id="M02_SYSTEM_VERSION_DELETE" parameterType="com.maxiaohua.genealogy.main.db.tbl.M02SystemVersionDTO">
+    DELETE FROM M02_SYSTEM_VERSION
+    WHERE
+      ID = #{Id} 
+  </delete>
+
+  <!-- Key Search -->
+  <select id="M02_SYSTEM_VERSION_FIND" resultType="com.maxiaohua.genealogy.main.db.tbl.M02SystemVersionDTO">
+    SELECT
+      ID AS "Id" ,
+      IMSI AS "Imsi" ,
+      CHANNEL AS "Channel" ,
+      VERSION AS "Version" ,
+      LOAD_PATH AS "LoadPath" ,
+      DESCRIP AS "Descrip" ,
+      DEL_FLG AS "DelFlg" ,
+      IS_FORCE AS "IsForce" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM M02_SYSTEM_VERSION
+    WHERE
+      ID = #{Id} 
+  </select>
+
+  <!-- Key Search（For Update） -->
+  <select id="M02_SYSTEM_VERSION_FIND_FOR_UPDATE" resultType="com.maxiaohua.genealogy.main.db.tbl.M02SystemVersionDTO">
+    SELECT
+      ID AS "Id" ,
+      IMSI AS "Imsi" ,
+      CHANNEL AS "Channel" ,
+      VERSION AS "Version" ,
+      LOAD_PATH AS "LoadPath" ,
+      DESCRIP AS "Descrip" ,
+      DEL_FLG AS "DelFlg" ,
+      IS_FORCE AS "IsForce" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM M02_SYSTEM_VERSION
+    WHERE
+      ID = #{Id} 
+    FOR UPDATE
+  </select>
+
+  <!-- AND Search -->
+  <select id="M02_SYSTEM_VERSION_EQUAL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.M02SystemVersionDTO">
+    SELECT
+      ID AS "Id" ,
+      IMSI AS "Imsi" ,
+      CHANNEL AS "Channel" ,
+      VERSION AS "Version" ,
+      LOAD_PATH AS "LoadPath" ,
+      DESCRIP AS "Descrip" ,
+      DEL_FLG AS "DelFlg" ,
+      IS_FORCE AS "IsForce" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM M02_SYSTEM_VERSION
+    <where>
+      <if test="Id != null">AND ID = #{Id}</if>
+      <if test="Imsi != null">AND IMSI = #{Imsi}</if>
+      <if test="Channel != null">AND CHANNEL = #{Channel}</if>
+      <if test="Version != null">AND VERSION = #{Version}</if>
+      <if test="LoadPath != null">AND LOAD_PATH = #{LoadPath}</if>
+      <if test="Descrip != null">AND DESCRIP = #{Descrip}</if>
+      <if test="DelFlg != null">AND DEL_FLG = #{DelFlg}</if>
+      <if test="IsForce != null">AND IS_FORCE = #{IsForce}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search(OR) -->
+  <select id="M02_SYSTEM_VERSION_EQUAL_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.M02SystemVersionDTO">
+    SELECT
+      ID AS "Id" ,
+      IMSI AS "Imsi" ,
+      CHANNEL AS "Channel" ,
+      VERSION AS "Version" ,
+      LOAD_PATH AS "LoadPath" ,
+      DESCRIP AS "Descrip" ,
+      DEL_FLG AS "DelFlg" ,
+      IS_FORCE AS "IsForce" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM M02_SYSTEM_VERSION
+    <where>
+      <if test="Id != null">OR ID = #{Id}</if>
+      <if test="Imsi != null">OR IMSI = #{Imsi}</if>
+      <if test="Channel != null">OR CHANNEL = #{Channel}</if>
+      <if test="Version != null">OR VERSION = #{Version}</if>
+      <if test="LoadPath != null">OR LOAD_PATH = #{LoadPath}</if>
+      <if test="Descrip != null">OR DESCRIP = #{Descrip}</if>
+      <if test="DelFlg != null">OR DEL_FLG = #{DelFlg}</if>
+      <if test="IsForce != null">OR IS_FORCE = #{IsForce}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE -->
+  <select id="M02_SYSTEM_VERSION_LIKE_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.M02SystemVersionDTO">
+    SELECT
+      ID AS "Id" ,
+      IMSI AS "Imsi" ,
+      CHANNEL AS "Channel" ,
+      VERSION AS "Version" ,
+      LOAD_PATH AS "LoadPath" ,
+      DESCRIP AS "Descrip" ,
+      DEL_FLG AS "DelFlg" ,
+      IS_FORCE AS "IsForce" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM M02_SYSTEM_VERSION
+    <where>
+      <if test="Id != null">AND ID LIKE '%'|| #{Id} ||'%'</if>
+      <if test="Imsi != null">AND IMSI LIKE '%'|| #{Imsi} ||'%'</if>
+      <if test="Channel != null">AND CHANNEL LIKE '%'|| #{Channel} ||'%'</if>
+      <if test="Version != null">AND VERSION LIKE '%'|| #{Version} ||'%'</if>
+      <if test="LoadPath != null">AND LOAD_PATH LIKE '%'|| #{LoadPath} ||'%'</if>
+      <if test="Descrip != null">AND DESCRIP LIKE '%'|| #{Descrip} ||'%'</if>
+      <if test="DelFlg != null">AND DEL_FLG LIKE '%'|| #{DelFlg} ||'%'</if>
+      <if test="IsForce != null">AND IS_FORCE LIKE '%'|| #{IsForce} ||'%'</if>
+      <if test="LastDate != null">AND LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">AND LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE(OR) -->
+  <select id="M02_SYSTEM_VERSION_LIKE_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.M02SystemVersionDTO">
+    SELECT
+      ID AS "Id" ,
+      IMSI AS "Imsi" ,
+      CHANNEL AS "Channel" ,
+      VERSION AS "Version" ,
+      LOAD_PATH AS "LoadPath" ,
+      DESCRIP AS "Descrip" ,
+      DEL_FLG AS "DelFlg" ,
+      IS_FORCE AS "IsForce" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM M02_SYSTEM_VERSION
+    <where>
+      <if test="Id != null">OR ID LIKE '%'|| #{Id} ||'%'</if>
+      <if test="Imsi != null">OR IMSI LIKE '%'|| #{Imsi} ||'%'</if>
+      <if test="Channel != null">OR CHANNEL LIKE '%'|| #{Channel} ||'%'</if>
+      <if test="Version != null">OR VERSION LIKE '%'|| #{Version} ||'%'</if>
+      <if test="LoadPath != null">OR LOAD_PATH LIKE '%'|| #{LoadPath} ||'%'</if>
+      <if test="Descrip != null">OR DESCRIP LIKE '%'|| #{Descrip} ||'%'</if>
+      <if test="DelFlg != null">OR DEL_FLG LIKE '%'|| #{DelFlg} ||'%'</if>
+      <if test="IsForce != null">OR IS_FORCE LIKE '%'|| #{IsForce} ||'%'</if>
+      <if test="LastDate != null">OR LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">OR LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Customize Search -->
+  <select id="M02_SYSTEM_VERSION_SQL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.M02SystemVersionDTO" parameterType="java.util.Map">
+    SELECT
+      ID AS "Id" ,
+      IMSI AS "Imsi" ,
+      CHANNEL AS "Channel" ,
+      VERSION AS "Version" ,
+      LOAD_PATH AS "LoadPath" ,
+      DESCRIP AS "Descrip" ,
+      DEL_FLG AS "DelFlg" ,
+      IS_FORCE AS "IsForce" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM M02_SYSTEM_VERSION
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Count -->
+  <select id="M02_SYSTEM_VERSION_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM M02_SYSTEM_VERSION
+    <where>
+      <if test="Id != null">AND ID = #{Id}</if>
+      <if test="Imsi != null">AND IMSI = #{Imsi}</if>
+      <if test="Channel != null">AND CHANNEL = #{Channel}</if>
+      <if test="Version != null">AND VERSION = #{Version}</if>
+      <if test="LoadPath != null">AND LOAD_PATH = #{LoadPath}</if>
+      <if test="Descrip != null">AND DESCRIP = #{Descrip}</if>
+      <if test="DelFlg != null">AND DEL_FLG = #{DelFlg}</if>
+      <if test="IsForce != null">AND IS_FORCE = #{IsForce}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count OR -->
+  <select id="M02_SYSTEM_VERSION_COUNT_OR" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM M02_SYSTEM_VERSION
+    <where>
+      <if test="Id != null">OR ID = #{Id}</if>
+      <if test="Imsi != null">OR IMSI = #{Imsi}</if>
+      <if test="Channel != null">OR CHANNEL = #{Channel}</if>
+      <if test="Version != null">OR VERSION = #{Version}</if>
+      <if test="LoadPath != null">OR LOAD_PATH = #{LoadPath}</if>
+      <if test="Descrip != null">OR DESCRIP = #{Descrip}</if>
+      <if test="DelFlg != null">OR DEL_FLG = #{DelFlg}</if>
+      <if test="IsForce != null">OR IS_FORCE = #{IsForce}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count Customize -->
+  <select id="M02_SYSTEM_VERSION_COUNT_SEARCH" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    FROM M02_SYSTEM_VERSION
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+  </select>
+</mapper>

@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sql">
+
+  <!-- Table Insert -->
+  <insert id="T11_PER_SPOUSE_INSERT" parameterType="com.maxiaohua.genealogy.main.db.tbl.T11PerSpouseDTO">
+    INSERT INTO T11_PER_SPOUSE (
+      PER_NO ,
+      SPOUSE_NO ,
+      STATUS ,
+      DEL_FLG ,
+      CREATE_USER ,
+      CREATE_DATE ,
+      CREATE_TIME ,
+      LAST_USER ,
+      LAST_DATE ,
+      LAST_TIME 
+    ) VALUES (
+      #{PerNo} ,
+      #{SpouseNo} ,
+      #{Status} ,
+      #{DelFlg} ,
+      #{CreateUser} ,
+      #{CreateDate} ,
+      #{CreateTime} ,
+      #{LastUser} ,
+      curdate() ,
+      curtime() 
+    )
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty = "ID">
+    SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+  </insert>
+
+  <!-- Table Update -->
+  <update id="T11_PER_SPOUSE_FULL_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T11PerSpouseDTO">
+    UPDATE T11_PER_SPOUSE SET
+      PER_NO = #{PerNo} ,
+      SPOUSE_NO = #{SpouseNo} ,
+      STATUS = #{Status} ,
+      DEL_FLG = #{DelFlg} ,
+      CREATE_USER = #{CreateUser} ,
+      CREATE_DATE = #{CreateDate} ,
+      CREATE_TIME = #{CreateTime} ,
+      LAST_USER = #{LastUser} ,
+      LAST_DATE = curdate() ,
+      LAST_TIME = curtime() 
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <update id="T11_PER_SPOUSE_UPDATE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T11PerSpouseDTO">
+    UPDATE T11_PER_SPOUSE
+    <set>
+      <if test="PerNo!=null">PER_NO = #{PerNo},</if>
+      <if test="SpouseNo!=null">SPOUSE_NO = #{SpouseNo},</if>
+      <if test="Status!=null">STATUS = #{Status},</if>
+      <if test="DelFlg!=null">DEL_FLG = #{DelFlg},</if>
+      <if test="CreateUser!=null">CREATE_USER = #{CreateUser},</if>
+      <if test="CreateDate!=null">CREATE_DATE = #{CreateDate},</if>
+      <if test="CreateTime!=null">CREATE_TIME = #{CreateTime},</if>
+      <if test="LastUser!=null">LAST_USER = #{LastUser},</if>
+      <if test="LastDate!=null">LAST_DATE = curdate(),</if>
+      <if test="LastTime!=null">LAST_TIME = curtime(),</if>
+    </set>
+    WHERE
+      ID = #{ID} 
+  </update>
+
+  <!-- Key Delete -->
+  <delete id="T11_PER_SPOUSE_DELETE" parameterType="com.maxiaohua.genealogy.main.db.tbl.T11PerSpouseDTO">
+    DELETE FROM T11_PER_SPOUSE
+    WHERE
+      ID = #{ID} 
+  </delete>
+
+  <!-- Key Search -->
+  <select id="T11_PER_SPOUSE_FIND" resultType="com.maxiaohua.genealogy.main.db.tbl.T11PerSpouseDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      SPOUSE_NO AS "SpouseNo" ,
+      STATUS AS "Status" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T11_PER_SPOUSE
+    WHERE
+      ID = #{ID} 
+  </select>
+
+  <!-- Key Search（For Update） -->
+  <select id="T11_PER_SPOUSE_FIND_FOR_UPDATE" resultType="com.maxiaohua.genealogy.main.db.tbl.T11PerSpouseDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      SPOUSE_NO AS "SpouseNo" ,
+      STATUS AS "Status" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T11_PER_SPOUSE
+    WHERE
+      ID = #{ID} 
+    FOR UPDATE
+  </select>
+
+  <!-- AND Search -->
+  <select id="T11_PER_SPOUSE_EQUAL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T11PerSpouseDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      SPOUSE_NO AS "SpouseNo" ,
+      STATUS AS "Status" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T11_PER_SPOUSE
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="PerNo != null">AND PER_NO = #{PerNo}</if>
+      <if test="SpouseNo != null">AND SPOUSE_NO = #{SpouseNo}</if>
+      <if test="Status != null">AND STATUS = #{Status}</if>
+      <if test="DelFlg != null">AND DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">AND LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search(OR) -->
+  <select id="T11_PER_SPOUSE_EQUAL_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T11PerSpouseDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      SPOUSE_NO AS "SpouseNo" ,
+      STATUS AS "Status" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T11_PER_SPOUSE
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="PerNo != null">OR PER_NO = #{PerNo}</if>
+      <if test="SpouseNo != null">OR SPOUSE_NO = #{SpouseNo}</if>
+      <if test="Status != null">OR STATUS = #{Status}</if>
+      <if test="DelFlg != null">OR DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">OR LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE -->
+  <select id="T11_PER_SPOUSE_LIKE_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T11PerSpouseDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      SPOUSE_NO AS "SpouseNo" ,
+      STATUS AS "Status" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T11_PER_SPOUSE
+    <where>
+      <if test="ID != null">AND ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="PerNo != null">AND PER_NO LIKE '%'|| #{PerNo} ||'%'</if>
+      <if test="SpouseNo != null">AND SPOUSE_NO LIKE '%'|| #{SpouseNo} ||'%'</if>
+      <if test="Status != null">AND STATUS LIKE '%'|| #{Status} ||'%'</if>
+      <if test="DelFlg != null">AND DEL_FLG LIKE '%'|| #{DelFlg} ||'%'</if>
+      <if test="CreateUser != null">AND CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">AND CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">AND CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+      <if test="LastUser != null">AND LAST_USER LIKE '%'|| #{LastUser} ||'%'</if>
+      <if test="LastDate != null">AND LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">AND LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Search LIKE(OR) -->
+  <select id="T11_PER_SPOUSE_LIKE_SEARCH_OR" resultType="com.maxiaohua.genealogy.main.db.tbl.T11PerSpouseDTO">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      SPOUSE_NO AS "SpouseNo" ,
+      STATUS AS "Status" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T11_PER_SPOUSE
+    <where>
+      <if test="ID != null">OR ID LIKE '%'|| #{ID} ||'%'</if>
+      <if test="PerNo != null">OR PER_NO LIKE '%'|| #{PerNo} ||'%'</if>
+      <if test="SpouseNo != null">OR SPOUSE_NO LIKE '%'|| #{SpouseNo} ||'%'</if>
+      <if test="Status != null">OR STATUS LIKE '%'|| #{Status} ||'%'</if>
+      <if test="DelFlg != null">OR DEL_FLG LIKE '%'|| #{DelFlg} ||'%'</if>
+      <if test="CreateUser != null">OR CREATE_USER LIKE '%'|| #{CreateUser} ||'%'</if>
+      <if test="CreateDate != null">OR CREATE_DATE LIKE '%'|| #{CreateDate} ||'%'</if>
+      <if test="CreateTime != null">OR CREATE_TIME LIKE '%'|| #{CreateTime} ||'%'</if>
+      <if test="LastUser != null">OR LAST_USER LIKE '%'|| #{LastUser} ||'%'</if>
+      <if test="LastDate != null">OR LAST_DATE LIKE '%'|| #{LastDate} ||'%'</if>
+      <if test="LastTime != null">OR LAST_TIME LIKE '%'|| #{LastTime} ||'%'</if>
+    </where>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Customize Search -->
+  <select id="T11_PER_SPOUSE_SQL_SEARCH" resultType="com.maxiaohua.genealogy.main.db.tbl.T11PerSpouseDTO" parameterType="java.util.Map">
+    SELECT
+      ID AS "ID" ,
+      PER_NO AS "PerNo" ,
+      SPOUSE_NO AS "SpouseNo" ,
+      STATUS AS "Status" ,
+      DEL_FLG AS "DelFlg" ,
+      CREATE_USER AS "CreateUser" ,
+      CREATE_DATE AS "CreateDate" ,
+      CREATE_TIME AS "CreateTime" ,
+      LAST_USER AS "LastUser" ,
+      LAST_DATE AS "LastDate" ,
+      LAST_TIME AS "LastTime" 
+    FROM T11_PER_SPOUSE
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+    <if test="_orderByCondition == null">ORDER BY ID</if>
+    <if test="_orderByCondition != null">ORDER BY ${_orderByCondition}</if>
+    <if test="_fetchFirstCondition != null">FETCH FIRST ${_fetchFirstCondition} ROWS ONLY</if>
+    <if test="_limitCondition != null">LIMIT ${_limitCondition}</if>
+    <if test="_offsetCondition != null">OFFSET ${_offsetCondition}</if>
+  </select>
+
+  <!-- Count -->
+  <select id="T11_PER_SPOUSE_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T11_PER_SPOUSE
+    <where>
+      <if test="ID != null">AND ID = #{ID}</if>
+      <if test="PerNo != null">AND PER_NO = #{PerNo}</if>
+      <if test="SpouseNo != null">AND SPOUSE_NO = #{SpouseNo}</if>
+      <if test="Status != null">AND STATUS = #{Status}</if>
+      <if test="DelFlg != null">AND DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">AND CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">AND CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">AND CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">AND LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">AND LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">AND LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count OR -->
+  <select id="T11_PER_SPOUSE_COUNT_OR" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T11_PER_SPOUSE
+    <where>
+      <if test="ID != null">OR ID = #{ID}</if>
+      <if test="PerNo != null">OR PER_NO = #{PerNo}</if>
+      <if test="SpouseNo != null">OR SPOUSE_NO = #{SpouseNo}</if>
+      <if test="Status != null">OR STATUS = #{Status}</if>
+      <if test="DelFlg != null">OR DEL_FLG = #{DelFlg}</if>
+      <if test="CreateUser != null">OR CREATE_USER = #{CreateUser}</if>
+      <if test="CreateDate != null">OR CREATE_DATE = #{CreateDate}</if>
+      <if test="CreateTime != null">OR CREATE_TIME = #{CreateTime}</if>
+      <if test="LastUser != null">OR LAST_USER = #{LastUser}</if>
+      <if test="LastDate != null">OR LAST_DATE = #{LastDate}</if>
+      <if test="LastTime != null">OR LAST_TIME = #{LastTime}</if>
+    </where>
+  </select>
+
+  <!-- Count Customize -->
+  <select id="T11_PER_SPOUSE_COUNT_SEARCH" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(*)
+    FROM T11_PER_SPOUSE
+    <if test="_dynamicWhereCondition != null">WHERE ${_dynamicWhereCondition}</if>
+  </select>
+</mapper>
